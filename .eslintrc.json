@@ -1,7 +1,7 @@
 {
     "env": {
-        "browser": true,
-        "es2021": true
+        "es2021": true,
+        "node": true
     },
     "extends": [
         "airbnb-base"
@@ -15,5 +15,10 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "@typescript-eslint/indent": [
+            "error",
+            2
+        ],
+        "no-underscore-dangle": 0
     }
 }
