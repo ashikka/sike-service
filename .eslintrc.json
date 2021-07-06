@@ -19,6 +19,16 @@
             "error",
             2
         ],
-        "no-underscore-dangle": 0
+        "no-underscore-dangle": 0,
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ]
     }
 }
