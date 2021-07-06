@@ -1,9 +1,21 @@
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 import express from 'express';
+import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+import http from 'http';
+import logger from './utils/logger';
 
-require('dotenv').config();
+dotenv.config();
 
 const app = express();
+const server = http.createServer(app);
 
-app.listen(process.env.PORT || 8000, (): void => {
-  console.log(`App listening on port ${process.env.PORT}`);
+app.use(bodyParser.urlencoded({
+  extended: true,
+}));
+app.use(bodyParser.json());
+
+server.listen(process.env.PORT || 8000, (): void => {
+  logger.info(`App listening on port ${process.env.PORT}`);
 });
