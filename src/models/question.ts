@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { QuestionDocSchema } from '../utils/interfaces';
 
 const QuestionSchema = new mongoose.Schema({
   question: {
@@ -13,6 +14,6 @@ const QuestionSchema = new mongoose.Schema({
   },
 });
 
-const QuestionModel = mongoose.model('Question', QuestionSchema);
+const QuestionModel = mongoose.model<QuestionDocSchema>('Question', QuestionSchema);
 
 export default { QuestionModel, QuestionSchema };

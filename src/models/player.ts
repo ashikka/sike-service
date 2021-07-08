@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { PlayerDocSchema } from '../utils/interfaces';
 
 const PlayerSchema = new mongoose.Schema({
   username: {
@@ -12,6 +13,6 @@ const PlayerSchema = new mongoose.Schema({
   },
 });
 
-const PlayerModel = mongoose.model('Player', PlayerSchema);
+const PlayerModel = mongoose.model<PlayerDocSchema>('Player', PlayerSchema);
 
 export default { PlayerModel, PlayerSchema };

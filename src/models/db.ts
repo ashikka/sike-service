@@ -1,5 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import mongoose from 'mongoose';
 import logger from '../utils/logger';
 

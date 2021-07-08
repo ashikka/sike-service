@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 import VoteSchema from './vote';
+import { ResponseDocSchema } from '../utils/interfaces';
 
 const ResponseSchema = new mongoose.Schema({
-  Response: {
+  response: {
     type: String,
     required: true,
     unique: true,
@@ -23,6 +24,6 @@ const ResponseSchema = new mongoose.Schema({
   },
 });
 
-const ResponseModel = mongoose.model('Response', ResponseSchema);
+const ResponseModel = mongoose.model<ResponseDocSchema>('Response', ResponseSchema);
 
 export default { ResponseModel, ResponseSchema };

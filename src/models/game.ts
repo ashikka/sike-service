@@ -1,9 +1,8 @@
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import mongoose from 'mongoose';
 import PlayerSchema from './player';
 import QuestionSchema from './question';
 import ResponseSchema from './response';
+import { GameDocSchema } from '../utils/interfaces';
 
 const GameSchema = new mongoose.Schema({
   players: {
@@ -43,6 +42,6 @@ const GameSchema = new mongoose.Schema({
   },
 });
 
-const GameModel = mongoose.model('Game', GameSchema);
+const GameModel = mongoose.model<GameDocSchema>('Game', GameSchema);
 
 export default GameModel;
