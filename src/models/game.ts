@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import PlayerSchema from './player';
+import { PlayerSchema } from './player';
 import QuestionSchema from './question';
 import ResponseSchema from './response';
 import { GameDocSchema } from '../utils/interfaces';
