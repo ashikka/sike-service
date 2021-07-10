@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { PlayerSchema } from './player';
-import { QuestionSchema } from './question';
 import { ResponseSchema } from './response';
 import { GameDocSchema } from '../utils/interfaces';
 
@@ -33,7 +32,7 @@ export const GameSchema = new mongoose.Schema({
     required: true,
   },
   questions: {
-    type: [QuestionSchema],
+    type: [String],
     // required: true,
   },
   responses: {
