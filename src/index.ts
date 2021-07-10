@@ -12,6 +12,11 @@ connectDB(process.env.DB_URL || '');
 const app = express();
 const server = http.createServer(app);
 
+app.use(express.urlencoded({
+  extended: false,
+}));
+app.use(express.json());
+
 app.use('/', routes);
 
 server.listen(process.env.PORT || 8000, (): void => {
