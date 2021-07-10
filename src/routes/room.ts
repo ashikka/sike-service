@@ -27,13 +27,19 @@ router.post('/create', async (req: Request, res: Response) => {
     });
     const game = await GameModel.create({
       players: [player],
-      hasStarted: true,
+      hasStarted: false,
       hasEnded: false,
       rounds,
       roomId,
       creator: username,
     });
-    res.json({ success: true, message: `Game created successfully: ${game}` });
+    res.json({
+      success: true,
+      message: 'Game created successfully',
+      data: {
+        rounds: game.rounds, roomId: game.roomId, creator: game.creator,
+      },
+    });
   } catch (e) {
     res.json({ succes: false, message: e });
   }
@@ -44,7 +50,7 @@ router.post('/join/:roomId', async (req: Request, res: Response) => {
     const USERNAME_REGEX = /^\S*$/;
     const { username, roomId } = Joi.attempt({
       username: req.body.username,
-      roomId: req.params,
+      roomId: req.params.roomId,
     }, roomJoinSchema);
 
     if (!username) {
@@ -69,11 +75,27 @@ router.post('/join/:roomId', async (req: Request, res: Response) => {
       username,
     });
 
-    room.players.push(player);
-    room.markModified('Game');
-    res.json({ success: true, message: `Room joined successfully ${room}` });
+    const newPlayer = await GameModel.findOneAndUpdate(
+      { roomId }, {
+        $push: {
+          players: player,
+        },
+      },
+    );
+
+    if (newPlayer) {
+      res.json(
+        {
+          success: true,
+          message: 'Room joined successfully',
+          data: { players: room.players.length, roomId: room.roomId },
+        },
+      );
+    } else {
+      res.json({ success: false, message: 'Could not join room' });
+    }
   } catch (e) {
-    res.json({ succes: false, message: e });
+    res.json({ success: false, message: e });
   }
 });
 
