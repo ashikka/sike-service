@@ -1,23 +1,13 @@
 import mongoose from 'mongoose';
-import PlayerSchema from '../models/player';
-import QuestionSchema from '../models/question';
-import ResponseSchema from '../models/response';
-import VoteSchema from '../models/vote';
-
-export interface GameDocSchema extends mongoose.Document {
-  players: typeof PlayerSchema[]
-  hasStarted: boolean,
-  hasEnded: boolean,
-  rounds: number,
-  roomId: string,
-  creator: string,
-  questions: typeof QuestionSchema[],
-  response: typeof ResponseSchema[]
-}
 
 export interface PlayerDocSchema extends mongoose.Document{
   username: string,
   points: number
+}
+
+export interface VoteDocSchema extends mongoose.Document{
+  vote: number,
+  username: string
 }
 
 export interface QuestionDocSchema extends mongoose.Document{
@@ -29,10 +19,16 @@ export interface ResponseDocSchema extends mongoose.Document{
   response: string,
   username: string,
   questionId: string,
-  votes: typeof VoteSchema[]
+  votes: VoteDocSchema[]
 }
 
-export interface VoteDocSchema extends mongoose.Document{
-  vote: number,
-  username: string
+export interface GameDocSchema extends mongoose.Document {
+  players: PlayerDocSchema[]
+  hasStarted: boolean,
+  hasEnded: boolean,
+  rounds: number,
+  roomId: string,
+  creator: string,
+  questions: QuestionDocSchema[],
+  response: ResponseDocSchema[]
 }
