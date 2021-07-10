@@ -29,6 +29,6 @@ export interface GameDocSchema extends mongoose.Document {
   rounds: number,
   roomId: string,
   creator: string,
-  questions: QuestionDocSchema[],
+  questions: string[],
   response: ResponseDocSchema[]
 }
