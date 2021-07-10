@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { PlayerDocSchema } from '../utils/interfaces';
 
 export const PlayerSchema = new mongoose.Schema({
@@ -13,6 +13,4 @@ export const PlayerSchema = new mongoose.Schema({
   },
 });
 
-const PlayerModel = mongoose.model<PlayerDocSchema>('Player', PlayerSchema);
-
-export default PlayerModel;
+export const PlayerModel: Model<PlayerDocSchema> = mongoose.model('Player', PlayerSchema);

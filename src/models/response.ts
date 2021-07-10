@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import VoteSchema from './vote';
+import { VoteSchema } from './vote';
 import { ResponseDocSchema } from '../utils/interfaces';
 
-const ResponseSchema = new mongoose.Schema({
+export const ResponseSchema = new mongoose.Schema({
   response: {
     type: String,
     required: true,
@@ -15,8 +15,8 @@ const ResponseSchema = new mongoose.Schema({
   },
   questionId: {
     type: String,
-    required: true,
-    unique: true,
+    // required: true,
+    // unique: true,
   },
   votes: {
     type: [VoteSchema],
@@ -24,6 +24,4 @@ const ResponseSchema = new mongoose.Schema({
   },
 });
 
-const ResponseModel = mongoose.model<ResponseDocSchema>('Response', ResponseSchema);
-
-export default { ResponseModel, ResponseSchema };
+export const ResponseModel = mongoose.model<ResponseDocSchema>('Response', ResponseSchema);

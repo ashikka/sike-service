@@ -1,19 +1,16 @@
 import mongoose from 'mongoose';
 import { QuestionDocSchema } from '../utils/interfaces';
 
-const QuestionSchema = new mongoose.Schema({
+export const QuestionSchema = new mongoose.Schema({
   question: {
     type: String,
-    required: true,
-    unique: true,
+    // required: true,
   },
   questionId: {
     type: String,
-    required: true,
-    unique: true,
+    // required: true,
+    // unique: true,
   },
 });
 
-const QuestionModel = mongoose.model<QuestionDocSchema>('Question', QuestionSchema);
-
-export default { QuestionModel, QuestionSchema };
+export const QuestionModel = mongoose.model<QuestionDocSchema>('Question', QuestionSchema);

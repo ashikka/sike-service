@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import { PlayerSchema } from './player';
-import QuestionSchema from './question';
-import ResponseSchema from './response';
+import { QuestionSchema } from './question';
+import { ResponseSchema } from './response';
 import { GameDocSchema } from '../utils/interfaces';
 
-const GameSchema = new mongoose.Schema({
+export const GameSchema = new mongoose.Schema({
   players: {
     type: [PlayerSchema],
     required: true,
@@ -34,14 +34,12 @@ const GameSchema = new mongoose.Schema({
   },
   questions: {
     type: [QuestionSchema],
-    required: true,
+    // required: true,
   },
   responses: {
     type: [ResponseSchema],
-    required: true,
+    // required: true,
   },
 });
 
-const GameModel = mongoose.model<GameDocSchema>('Game', GameSchema);
-
-export default GameModel;
+export const GameModel = mongoose.model<GameDocSchema>('Game', GameSchema);

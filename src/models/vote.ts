@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { VoteDocSchema } from '../utils/interfaces';
 
-const VoteSchema = new mongoose.Schema({
+export const VoteSchema = new mongoose.Schema({
   vote: {
     type: Number,
     required: true,
@@ -15,6 +15,4 @@ const VoteSchema = new mongoose.Schema({
   },
 });
 
-const VoteModel = mongoose.model<VoteDocSchema>('Vote', VoteSchema);
-
-export default { VoteModel, VoteSchema };
+export const VoteModel = mongoose.model<VoteDocSchema>('Vote', VoteSchema);
