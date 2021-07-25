@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { VoteSchema } from './vote';
 import { ResponseDocSchema } from '../utils/interfaces';
 
 export const ResponseSchema = new mongoose.Schema({
@@ -19,7 +18,7 @@ export const ResponseSchema = new mongoose.Schema({
     // unique: true,
   },
   votes: {
-    type: [VoteSchema],
+    type: [String],
     default: [],
   },
 });

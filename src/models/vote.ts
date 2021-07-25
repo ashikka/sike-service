@@ -2,11 +2,6 @@ import mongoose from 'mongoose';
 import { VoteDocSchema } from '../utils/interfaces';
 
 export const VoteSchema = new mongoose.Schema({
-  vote: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
 
   username: {
     type: String,
@@ -16,3 +11,5 @@ export const VoteSchema = new mongoose.Schema({
 });
 
 export const VoteModel = mongoose.model<VoteDocSchema>('Vote', VoteSchema);
+
+// Unused for now
