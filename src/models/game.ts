@@ -23,6 +23,11 @@ export const GameSchema = new mongoose.Schema({
     required: true,
     default: 1,
   },
+  currentRound: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
   roomId: {
     type: String,
     required: true,
