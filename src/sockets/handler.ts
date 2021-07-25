@@ -1,7 +1,7 @@
 import socketio from 'socket.io';
 import logger from '../utils/logger';
 import {
-  onJoin, onStart, onEnd,
+  onJoin, onStart, onEnd, onAttempt, calculateBestResponse, updateLeaderboard, onNext,
 } from './socket';
 
 export default function socketHandler(io: socketio.Server) {
@@ -22,6 +22,22 @@ export default function socketHandler(io: socketio.Server) {
     //   logger.info(`Disconnected ${socket.id}`);
     //   await onDisconnect(data, io, namespace);
     // });
+
+    socket.on('onAttempt', async (data) => {
+      await onAttempt(data, io, namespace);
+    });
+
+    socket.on('OnVoting', async (data) => {
+      await calculateBestResponse(data, io, namespace);
+    });
+
+    socket.on('onVotingEnd', async (data) => {
+      await updateLeaderboard(data, io, namespace);
+    });
+
+    socket.on('OnNext', async (data) => {
+      await onNext(data, io, namespace);
+    });
 
     socket.on('end', async (data) => {
       await onEnd(data, io, namespace);
