@@ -99,11 +99,57 @@ npm install
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+### 1. Create room
+```http
+  POST /room/create
+```
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+| Parameter | Type     | Description                     |
+| :--------: | :-------: | :------------------------------: |
+| `body`    | `string` |  username |
+| `body`    | `number` | rounds |
 
 
+
+### Response format
+
+```json
+{
+    "success": true,
+    "message": "Game created successfully",
+    "data": {
+        "rounds": 1,
+        "roomId": "someRandomUUID",
+        "creator": "creatorName"
+    }
+}
+```
+
+
+### 2. Join a created room
+
+```http
+POST /room/join/:roomId
+```
+
+| Parameter | Type | Description                       |
+| :--------: | :---: | :--------------------------------: |
+| `body`     | `string` | username |
+
+
+
+### Response Format
+
+```json
+{
+    "success": true,
+    "message": "Room joined successfully",
+    "data": {
+        "players": 4,
+        "roomId": "someRandomUUID"
+    }
+}
+```
 
 <!-- ROADMAP -->
 ## Roadmap
