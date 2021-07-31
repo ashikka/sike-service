@@ -4,23 +4,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/csivitu/Template">
-    <img src="https://csivit.com/images/favicon.png" alt="Logo" width="80">
+  <a href="https://github.com/ashikka/sike-service">
+    <img src="./assets/logo.png" alt="Logo" width="80">
   </a>
 
-  <h3 align="center">YOUR_TITLE</h3>
+  <h3 align="center">sike-backend</h3>
 
   <p align="center">
-    YOUR_SHORT_DESCRIPTION
+    The popular game Psych made better! 
     <br />
-    <a href="https://github.com/csivitu/Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/ashikka/sike-service"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/csivitu/Template">View Demo</a>
+    <a href="https://github.com/ashikka/sike-service">View Demo</a>
     ·
-    <a href="https://github.com/csivitu/Template/issues">Report Bug</a>
+    <a href="https://github.com/ashikka/sike-service/issues">Report Bug</a>
     ·
-    <a href="https://github.com/csivitu/Template/issues">Request Feature</a>
+    <a href="https://github.com/ashikka/sike-service/issues">Request Feature</a>
   </p>
 </p>
 
@@ -54,9 +54,14 @@ Here's a blank template to get started:
 
 ### Built With
 
-* []()
-* []()
-* []()
+* [express](https://www.npmjs.com/package/express)
+* [nodemon](https://www.npmjs.com/package/nodemon)
+* [joi](https://www.npmjs.com/package/nodemon)
+* [uuid](https://www.npmjs.com/package/uuid)
+* [mongoose](https://www.npmjs.com/package/mongoose)
+* [socket.io](https://www.npmjs.com/package/socket.io)
+* [winston](https://www.npmjs.com/package/winston)
+
 
 
 
@@ -73,11 +78,16 @@ This is an example of how to list things you need to use the software and how to
 npm install npm@latest -g
 ```
 
+* Typescript
+```sh
+npm install -g typescript
+```
+
 ### Installation
  
 1. Clone the repo
 ```sh
-git clone https://github.com/csivitu/Template.git
+git clone https://github.com/ashikka/sike-service.git
 ```
 2. Install NPM packages
 ```sh
@@ -98,7 +108,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/csivitu/Template/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/ashikka/sike-service/issues) for a list of proposed features (and known issues).
 
 
 
@@ -128,4 +138,4 @@ Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more informati
 [csivitu-shield]: https://img.shields.io/badge/csivitu-csivitu-blue
 [csivitu-url]: https://csivit.com
 [issues-shield]: https://img.shields.io/github/issues/csivitu/Template.svg?style=flat-square
-[issues-url]: https://github.com/csivitu/Template/issues
+[issues-url]: https://github.com/ashikka/sike-service/issues
