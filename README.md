@@ -8,7 +8,7 @@
     <img src="./assets/logo.png" alt="Logo" width="80">
   </a>
 
-  <h3 align="center">sike-backend</h3>
+  <h3 align="center">sike-service</h3>
 
   <p align="center">
     The popular game Psych made better! 
@@ -45,11 +45,12 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+We’re sure you’ve played "PSYCH!", a fun guessing game by Ellen DeGeneres, where trivia meets Cards Against Humanity. Then you must also be aware of how the game recently has become increasingly monetized making it a bit difficult to play it your friends.
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`Template`
+ We have developed a website to get your needs covered with this website version of “Psyche”. Choose from a variety of fun and hilarious categories, such as “The Truth Comes Out,” in which you and your friends become the game! Get ready to answer funny and ridiculous questions about one another. 
+
+"PSYCH!" is the perfect free website for family or friends game night, Zoom calls, road trips, or even waiting in line! Grab your devices, gather ‘round, and get ready for a gaming experience unlike any other house party game you’ve ever played!
+
 
 
 ### Built With
