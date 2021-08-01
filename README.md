@@ -101,8 +101,9 @@ npm install
 ## Usage
 
 ### 1. Create room
+
 ```http
-  POST /room/create
+POST /room/join
 ```
 
 | Parameter | Type     | Description                     |
