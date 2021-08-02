@@ -5,6 +5,7 @@ import { ResponseModel } from '../models/response';
 import calculateVotes from '../utils/calculateVotes';
 import { PlayerDocSchema } from '../utils/interfaces';
 import questionAssigner from '../utils/questionAssigner';
+import logger from '../utils/logger';
 
 // On join keep adding new players
 export function onJoin(
@@ -12,13 +13,13 @@ export function onJoin(
   io: socketio.Server,
   namespace: string,
 ) {
+  logger.info(data);
   const { roomId, players } = data;
 
   if (!roomId || !players || !players.length) {
     return;
   }
-
-  io.of(namespace).in(roomId).emit('join', {
+  io.of(namespace).to(roomId).emit('join', {
     players,
   });
 }
