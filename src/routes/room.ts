@@ -88,7 +88,7 @@ router.post('/join/:roomId', async (req: Request, res: Response) => {
         {
           success: true,
           message: 'Room joined successfully',
-          data: { players: room.players.length, roomId: room.roomId },
+          data: { players: room.players, roomId: room.roomId },
         },
       );
     } else {

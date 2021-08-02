@@ -13,8 +13,8 @@ export function onJoin(
   io: socketio.Server,
   namespace: string,
 ) {
-  logger.info(data);
   const { roomId, players } = data;
+  logger.info(data);
 
   if (!roomId || !players || !players.length) {
     return;
@@ -59,6 +59,8 @@ export async function onStart(
   if (!game.hasStarted) {
     return;
   }
+  logger.info('Game started');
+
   io.of(namespace).in(roomId).emit('start', {
     roomId,
     hasStarted: true,
