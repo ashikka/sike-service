@@ -11,7 +11,8 @@ export default function socketHandler(io: socketio.Server) {
 
     socket.on('join', async (data) => {
       logger.info(`${socket.id} Joined room ${data.roomId}`);
-      await onJoin(data, io, namespace);
+      await socket.join(data.roomId);
+      onJoin(data, io, namespace);
     });
 
     socket.on('start', async (data) => {
