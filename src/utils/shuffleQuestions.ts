@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-export default function shuffle(array: string[]) {
+export default function shuffle(array: Function[]) {
   let currentIndex = array.length; let
     randomIndex;
 
