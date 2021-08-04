@@ -98,8 +98,8 @@ npm install
 
 ```sh
 {
-        echo '  PORT='
-        echo '  DB_URL='
+        echo 'PORT='
+        echo 'DB_URL='
 } >> .env
 ```
 
