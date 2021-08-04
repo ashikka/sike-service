@@ -1,7 +1,7 @@
 import socketio from 'socket.io';
 import logger from '../utils/logger';
 import {
-  onJoin, onStart, onEnd, onAttempt, calculateBestResponse, updateLeaderboard, onNext,
+  onJoin, onStart, onDisconnect, onEnd, onAttempt, calculateBestResponse, updateLeaderboard, onNext,
 } from './socket';
 
 export default function socketHandler(io: socketio.Server) {
@@ -21,10 +21,11 @@ export default function socketHandler(io: socketio.Server) {
       onStart(data, io, namespace);
     });
 
-    // socket.on('disconnect', async (data) => {
-    //   logger.info(`Disconnected ${socket.id}`);
-    //   await onDisconnect(data, io, namespace);
-    // });
+    socket.on('disconnectPlayer', async (data) => {
+      logger.info(`Disconnected ${data.username}`);
+      await socket.join(data.roomId);
+      onDisconnect(data, io, namespace);
+    });
 
     socket.on('onAttempt', async (data) => {
       await onAttempt(data, io, namespace);

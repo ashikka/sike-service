@@ -66,7 +66,7 @@ export async function onStart(
   });
 }
 
-// one question attempt and keep adding responses
+// One question attempt and keep adding responses
 export async function onAttempt(
   data: {
     roomId: string;
@@ -106,7 +106,7 @@ export async function onAttempt(
   });
 }
 
-// vote for best response
+// Vote for best response
 export async function calculateBestResponse(
   data: {
     roomId: string;
@@ -151,7 +151,7 @@ export async function updateLeaderboard(data: {roomId: string}, io: socketio.Ser
   });
 }
 
-// finish round next question
+// Finish round next question
 export async function onNext(data: { roomId: string },
   io: socketio.Server,
   namespace: string) {
@@ -185,12 +185,12 @@ export async function onDisconnect(
 
   if (!roomId || !username) return;
 
-  const game = await GameModel.updateOne(
+  const game = await GameModel.findOneAndUpdate(
     { roomId },
     { $pull: { players: { username } } },
   );
   if (game) {
-    io.of(namespace).in(roomId).emit('disconnect', {
+    io.of(namespace).to(roomId).emit('disconnectPlayer', {
       username,
     });
   }
