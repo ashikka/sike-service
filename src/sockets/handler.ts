@@ -16,7 +16,9 @@ export default function socketHandler(io: socketio.Server) {
     });
 
     socket.on('start', async (data) => {
-      await onStart(data, io, namespace);
+      logger.info('Game started');
+      await socket.join(data.roomId);
+      onStart(data, io, namespace);
     });
 
     // socket.on('disconnect', async (data) => {
@@ -36,12 +38,16 @@ export default function socketHandler(io: socketio.Server) {
       await updateLeaderboard(data, io, namespace);
     });
 
-    socket.on('OnNext', async (data) => {
-      await onNext(data, io, namespace);
+    socket.on('next', async (data) => {
+      logger.info('Next round');
+      await socket.join(data.roomId);
+      onNext(data, io, namespace);
     });
 
     socket.on('end', async (data) => {
-      await onEnd(data, io, namespace);
+      logger.info('Game ended');
+      await socket.join(data.roomId);
+      onEnd(data, io, namespace);
     });
   });
 }
