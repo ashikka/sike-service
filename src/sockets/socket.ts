@@ -5,6 +5,7 @@ import { ResponseModel } from '../models/response';
 import calculateVotes from '../utils/calculateVotes';
 import { PlayerDocSchema } from '../utils/interfaces';
 import questionAssigner from '../utils/questionAssigner';
+import logger from '../utils/logger';
 
 // On join keep adding new players
 export function onJoin(
@@ -13,12 +14,12 @@ export function onJoin(
   namespace: string,
 ) {
   const { roomId, players } = data;
+  logger.info(data);
 
   if (!roomId || !players || !players.length) {
     return;
   }
-
-  io.of(namespace).in(roomId).emit('join', {
+  io.of(namespace).to(roomId).emit('join', {
     players,
   });
 }
@@ -58,13 +59,14 @@ export async function onStart(
   if (!game.hasStarted) {
     return;
   }
-  io.of(namespace).in(roomId).emit('start', {
+
+  io.of(namespace).to(roomId).emit('start', {
     roomId,
     hasStarted: true,
   });
 }
 
-// one question attempt and keep adding responses
+// One question attempt and keep adding responses
 export async function onAttempt(
   data: {
     roomId: string;
@@ -104,7 +106,7 @@ export async function onAttempt(
   });
 }
 
-// vote for best response
+// Vote for best response
 export async function calculateBestResponse(
   data: {
     roomId: string;
@@ -149,7 +151,7 @@ export async function updateLeaderboard(data: {roomId: string}, io: socketio.Ser
   });
 }
 
-// finish round next question
+// Finish round next question
 export async function onNext(data: { roomId: string },
   io: socketio.Server,
   namespace: string) {
@@ -158,18 +160,19 @@ export async function onNext(data: { roomId: string },
   const game = await GameModel.findOne({ roomId });
   if (!game) return false;
 
-  const updatedCurrentRound = game.currentRound + 1;
-  let updatedGame;
-  if (game) {
-    updatedGame = await ResponseModel.updateOne(
-      { roomId },
-      { $set: { currentRound: updatedCurrentRound } },
-    );
+  if (game.currentRound > 0 && game.currentRound < game.rounds) {
+    const updatedCurrentRound = game.currentRound + 1;
+    let updatedGame;
+    if (game) {
+      updatedGame = await GameModel.findOneAndUpdate(
+        { roomId },
+        { $set: { currentRound: updatedCurrentRound } },
+      );
+    }
+    io.of(namespace).to(roomId).emit('next', {
+      updatedGame,
+    });
   }
-  io.of(namespace).in(roomId).emit('onNext', {
-    game,
-    updatedGame,
-  });
 }
 
 // If user disconnects remove them from the game
@@ -182,12 +185,12 @@ export async function onDisconnect(
 
   if (!roomId || !username) return;
 
-  const game = await GameModel.updateOne(
+  const game = await GameModel.findOneAndUpdate(
     { roomId },
     { $pull: { players: { username } } },
   );
   if (game) {
-    io.of(namespace).in(roomId).emit('disconnect', {
+    io.of(namespace).to(roomId).emit('disconnectPlayer', {
       username,
     });
   }
@@ -205,7 +208,7 @@ export async function onEnd(
 
   const game = await GameModel.deleteOne({ roomId });
   if (game) {
-    io.of(namespace).in(roomId).emit('end', {
+    io.of(namespace).to(roomId).emit('end', {
       roomId,
     });
   }
