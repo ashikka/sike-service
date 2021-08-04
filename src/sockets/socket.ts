@@ -59,9 +59,8 @@ export async function onStart(
   if (!game.hasStarted) {
     return;
   }
-  logger.info('Game started');
 
-  io.of(namespace).in(roomId).emit('start', {
+  io.of(namespace).to(roomId).emit('start', {
     roomId,
     hasStarted: true,
   });
@@ -161,18 +160,19 @@ export async function onNext(data: { roomId: string },
   const game = await GameModel.findOne({ roomId });
   if (!game) return false;
 
-  const updatedCurrentRound = game.currentRound + 1;
-  let updatedGame;
-  if (game) {
-    updatedGame = await ResponseModel.updateOne(
-      { roomId },
-      { $set: { currentRound: updatedCurrentRound } },
-    );
+  if (game.currentRound > 0 && game.currentRound < game.rounds) {
+    const updatedCurrentRound = game.currentRound + 1;
+    let updatedGame;
+    if (game) {
+      updatedGame = await GameModel.findOneAndUpdate(
+        { roomId },
+        { $set: { currentRound: updatedCurrentRound } },
+      );
+    }
+    io.of(namespace).to(roomId).emit('next', {
+      updatedGame,
+    });
   }
-  io.of(namespace).in(roomId).emit('onNext', {
-    game,
-    updatedGame,
-  });
 }
 
 // If user disconnects remove them from the game
@@ -208,7 +208,7 @@ export async function onEnd(
 
   const game = await GameModel.deleteOne({ roomId });
   if (game) {
-    io.of(namespace).in(roomId).emit('end', {
+    io.of(namespace).to(roomId).emit('end', {
       roomId,
     });
   }
