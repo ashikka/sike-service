@@ -94,8 +94,14 @@ git clone https://github.com/ashikka/sike-service.git
 ```sh
 npm install
 ```
+3. Add necessary environment variables to `.env` file.
 
-
+```sh
+{
+        echo '  PORT='
+        echo '  DB_URL='
+} >> .env
+```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
