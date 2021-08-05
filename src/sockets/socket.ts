@@ -2,7 +2,6 @@
 import socketio from 'socket.io';
 import { GameModel } from '../models/game';
 import { ResponseModel } from '../models/response';
-import calculateVotes from '../utils/calculateVotes';
 import { PlayerDocSchema } from '../utils/interfaces';
 import questionAssigner from '../utils/questionAssigner';
 import logger from '../utils/logger';
@@ -72,13 +71,13 @@ export async function onAttempt(
     roomId: string;
     username: string;
     response: string;
-    questionId: string;
+    question: string;
   },
   io: socketio.Server,
   namespace: string,
 ) {
   const {
-    roomId, username, response, questionId,
+    roomId, username, response, question,
   } = data;
 
   if (!response || !username || !roomId) return false;
@@ -89,65 +88,61 @@ export async function onAttempt(
   const responseOfPlayer = await ResponseModel.create({
     response,
     username,
-    questionId,
+    question,
   });
 
   let updatedGame;
   if (game) {
-    updatedGame = await GameModel.updateOne(
+    updatedGame = await GameModel.findOneAndUpdate(
       { roomId },
-      { $push: { response: responseOfPlayer } },
+      { $push: { responses: responseOfPlayer } },
     );
   }
 
-  io.of(namespace).in(roomId).emit('onAttempt', {
-    game,
+  io.of(namespace).to(roomId).emit('onAttempt', {
     updatedGame,
   });
 }
 
 // Vote for best response
-export async function calculateBestResponse(
+export async function voteResponses(
   data: {
     roomId: string;
     username: string;
     response: string;
-    questionId: string;
+    question: string;
   },
   io: socketio.Server,
   namespace: string,
 ) {
   const {
-    roomId, username, response, questionId,
+    roomId, username, response, question,
   } = data;
 
-  if (!response || !username || !roomId || !questionId) return false;
+  if (!response || !username || !roomId || !question) return false;
 
   const game = await GameModel.findOne({ roomId });
 
   if (!game) return false;
 
   let updatedGame;
+  let updatedVotes;
   if (game) {
-    updatedGame = await ResponseModel.updateOne(
-      { roomId },
-      { $push: { votes: username } },
+    updatedVotes = await ResponseModel.findOneAndUpdate(
+      { question, response },
+      { $addToSet: { votes: username } },
+      { new: true },
     );
+
+    if (updatedVotes) {
+      updatedGame = await GameModel.findOneAndUpdate(
+        { roomId },
+        { responses: updatedVotes },
+      );
+    }
   }
-  io.of(namespace).in(roomId).emit('onVoting', {
-    game,
+  io.of(namespace).to(roomId).emit('voting', {
     updatedGame,
-  });
-}
-
-// Calculate points and update leaderboard
-export async function updateLeaderboard(data: {roomId: string}, io: socketio.Server,
-  namespace: string) {
-  const { roomId } = data;
-  const game = calculateVotes(roomId);
-
-  io.of(namespace).in(roomId).emit('onVotingEnd', {
-    game,
   });
 }
 
