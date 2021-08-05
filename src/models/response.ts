@@ -5,17 +5,14 @@ export const ResponseSchema = new mongoose.Schema({
   response: {
     type: String,
     required: true,
-    unique: true,
   },
   username: {
     type: String,
     required: true,
-    unique: true,
   },
-  questionId: {
+  question: {
     type: String,
-    // required: true,
-    // unique: true,
+    required: true,
   },
   votes: {
     type: [String],
