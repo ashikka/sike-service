@@ -100,42 +100,49 @@ export async function onAttempt(
     );
   }
 
-  io.of(namespace).in(roomId).emit('onAttempt', {
-    game,
+  io.of(namespace).to(roomId).emit('onAttempt', {
     updatedGame,
   });
 }
 
 // Vote for best response
-export async function calculateBestResponse(
+export async function voteResponses(
   data: {
     roomId: string;
     username: string;
     response: string;
-    questionId: string;
+    question: string;
   },
   io: socketio.Server,
   namespace: string,
 ) {
   const {
-    roomId, username, response, questionId,
+    roomId, username, response, question,
   } = data;
 
-  if (!response || !username || !roomId || !questionId) return false;
+  if (!response || !username || !roomId || !question) return false;
 
   const game = await GameModel.findOne({ roomId });
 
   if (!game) return false;
 
   let updatedGame;
+  let updatedVotes;
   if (game) {
-    updatedGame = await ResponseModel.updateOne(
-      { roomId },
-      { $push: { votes: username } },
+    updatedVotes = await ResponseModel.findOneAndUpdate(
+      { question, response },
+      { $addToSet: { votes: username } },
+      { new: true },
     );
+
+    if (updatedVotes) {
+      updatedGame = await GameModel.findOneAndUpdate(
+        { roomId },
+        { responses: updatedVotes },
+      );
+    }
   }
-  io.of(namespace).in(roomId).emit('onVoting', {
-    game,
+  io.of(namespace).to(roomId).emit('voting', {
     updatedGame,
   });
 }
