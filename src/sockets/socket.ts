@@ -72,13 +72,13 @@ export async function onAttempt(
     roomId: string;
     username: string;
     response: string;
-    questionId: string;
+    question: string;
   },
   io: socketio.Server,
   namespace: string,
 ) {
   const {
-    roomId, username, response, questionId,
+    roomId, username, response, question,
   } = data;
 
   if (!response || !username || !roomId) return false;
@@ -89,14 +89,14 @@ export async function onAttempt(
   const responseOfPlayer = await ResponseModel.create({
     response,
     username,
-    questionId,
+    question,
   });
 
   let updatedGame;
   if (game) {
-    updatedGame = await GameModel.updateOne(
+    updatedGame = await GameModel.findOneAndUpdate(
       { roomId },
-      { $push: { response: responseOfPlayer } },
+      { $push: { responses: responseOfPlayer } },
     );
   }
 
