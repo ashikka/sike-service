@@ -1,7 +1,7 @@
 import socketio from 'socket.io';
 import logger from '../utils/logger';
 import {
-  onJoin, onStart, onDisconnect, onEnd, onAttempt, voteResponses, updateLeaderboard, onNext,
+  onJoin, onStart, onDisconnect, onEnd, onAttempt, voteResponses, onNext,
 } from './socket';
 
 export default function socketHandler(io: socketio.Server) {
@@ -37,10 +37,6 @@ export default function socketHandler(io: socketio.Server) {
       logger.info(`${data.username}'s vote added`);
       await socket.join(data.roomId);
       voteResponses(data, io, namespace);
-    });
-
-    socket.on('onVotingEnd', async (data) => {
-      await updateLeaderboard(data, io, namespace);
     });
 
     socket.on('next', async (data) => {

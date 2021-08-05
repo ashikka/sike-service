@@ -2,7 +2,6 @@
 import socketio from 'socket.io';
 import { GameModel } from '../models/game';
 import { ResponseModel } from '../models/response';
-import calculateVotes from '../utils/calculateVotes';
 import { PlayerDocSchema } from '../utils/interfaces';
 import questionAssigner from '../utils/questionAssigner';
 import logger from '../utils/logger';
@@ -144,17 +143,6 @@ export async function voteResponses(
   }
   io.of(namespace).to(roomId).emit('voting', {
     updatedGame,
-  });
-}
-
-// Calculate points and update leaderboard
-export async function updateLeaderboard(data: {roomId: string}, io: socketio.Server,
-  namespace: string) {
-  const { roomId } = data;
-  const game = calculateVotes(roomId);
-
-  io.of(namespace).in(roomId).emit('onVotingEnd', {
-    game,
   });
 }
 
