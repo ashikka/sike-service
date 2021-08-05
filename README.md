@@ -45,6 +45,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+
+
+<img src="./assets/game-flow.png" alt="game-flow">
+
 We’re sure you’ve played *PSYCH!*, a fun guessing game by Ellen DeGeneres, where trivia meets Cards Against Humanity. Then you must also be aware of how the game recently has become increasingly monetized making it a bit difficult to play it your friends.
 
  We have developed a website to get your needs covered with this website version of *PSYCH!*. Choose from a variety of fun and hilarious categories, such as “The Truth Comes Out,” in which you and your friends become the game! Get ready to answer funny and ridiculous questions about one another. 
