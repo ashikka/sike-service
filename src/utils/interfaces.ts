@@ -18,7 +18,7 @@ export interface QuestionDocSchema extends mongoose.Document{
 export interface ResponseDocSchema extends mongoose.Document{
   response: string,
   username: string,
-  questionId: string,
+  question: string,
   votes: VoteDocSchema[]
 }
 
