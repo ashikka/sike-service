@@ -28,7 +28,9 @@ export default function socketHandler(io: socketio.Server) {
     });
 
     socket.on('onAttempt', async (data) => {
-      await onAttempt(data, io, namespace);
+      logger.info(`${data.username}'s response added`);
+      await socket.join(data.roomId);
+      onAttempt(data, io, namespace);
     });
 
     socket.on('OnVoting', async (data) => {
