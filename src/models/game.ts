@@ -38,11 +38,10 @@ export const GameSchema = new mongoose.Schema({
   },
   questions: {
     type: [String],
-    // required: true,
   },
   responses: {
     type: [ResponseSchema],
-    // required: true,
+    unique: true,
   },
 });
 
