@@ -1,7 +1,7 @@
 import socketio from 'socket.io';
 import logger from '../utils/logger';
 import {
-  onJoin, onStart, onDisconnect, onEnd, onAttempt, calculateBestResponse, updateLeaderboard, onNext,
+  onJoin, onStart, onDisconnect, onEnd, onAttempt, voteResponses, updateLeaderboard, onNext,
 } from './socket';
 
 export default function socketHandler(io: socketio.Server) {
@@ -27,14 +27,16 @@ export default function socketHandler(io: socketio.Server) {
       onDisconnect(data, io, namespace);
     });
 
-    socket.on('onAttempt', async (data) => {
+    socket.on('attempt', async (data) => {
       logger.info(`${data.username}'s response added`);
       await socket.join(data.roomId);
       onAttempt(data, io, namespace);
     });
 
-    socket.on('OnVoting', async (data) => {
-      await calculateBestResponse(data, io, namespace);
+    socket.on('voting', async (data) => {
+      logger.info(`${data.username}'s vote added`);
+      await socket.join(data.roomId);
+      voteResponses(data, io, namespace);
     });
 
     socket.on('onVotingEnd', async (data) => {
