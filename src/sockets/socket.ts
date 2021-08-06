@@ -99,7 +99,7 @@ export async function onAttempt(
     );
   }
 
-  io.of(namespace).to(roomId).emit('onAttempt', {
+  io.of(namespace).to(roomId).emit('attempt', {
     updatedGame,
   });
 }
