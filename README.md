@@ -5,7 +5,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/ashikka/sike-service">
-    <img src="./assets/logo.png" alt="Logo" width="200">
+    <img src="./assets/logo.png" alt="logo" width="200">
   </a>
 
   <h3 align="center">sike-service</h3>
