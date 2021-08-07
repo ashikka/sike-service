@@ -1,6 +1,6 @@
-[![csivit][csivitu-shield]][csivitu-url]
-[![Issues][issues-shield]][issues-url]
-
+![GitHub issues](https://img.shields.io/github/issues/ashikka/sike-service)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/ashikka/sike-service?color=green)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/ashikka/sike-service?color=blue)
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
