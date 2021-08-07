@@ -29,7 +29,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./src/index.ts",
     "start": "tsc -p .",
-    "build": "node ./build/index.ts",
+    "build": "tsc",
     "lint": "eslint \"src/**/*.{ts,js,jsx}\"",
     "lint:fix": "eslint \"src/**/*.{ts,js,jsx}\" --fix"
   },
