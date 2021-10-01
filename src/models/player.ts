@@ -1,5 +1,4 @@
-import mongoose, { Model } from 'mongoose';
-import { PlayerDocSchema } from '../utils/interfaces';
+import mongoose from 'mongoose';
 
 export const PlayerSchema = new mongoose.Schema({
   username: {
@@ -13,4 +12,4 @@ export const PlayerSchema = new mongoose.Schema({
   },
 });
 
-export const PlayerModel: Model<PlayerDocSchema> = mongoose.model('Player', PlayerSchema);
+export const PlayerModel = mongoose.model('Player', PlayerSchema);
